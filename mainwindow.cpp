@@ -6,22 +6,38 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     ui->label->setText("Input Bug Number");
     baseWebURL = "http://XXX.XXX.com/bugs/files/0/";
     baseFolderURL = "file:///Z:/files/0/";
 
-    HANDLE clip;
-    if (OpenClipboard(NULL)) {
-     clip = GetClipboardData(CF_TEXT);
-     CloseClipboard();
-    }
-    QString clip_str = QString::fromUtf8((char*)clip);
-    QString clip_toInt = QString::number(clip_str.toInt());
-    qDebug() << clip_toInt;
-    if (clip_toInt != "0")
-        ui->lineEdit->setText(clip_toInt);
+
+    ui->lineEdit->setFocus();
+    ui->lineEdit->installEventFilter(this);
 
 }
+
+bool MainWindow::eventFilter(QObject *object, QEvent *event)
+{
+    if (event->type() == QEvent::FocusIn)
+    {
+        qDebug() << "focus in";
+        HANDLE clip;
+        if (OpenClipboard(NULL)) {
+         clip = GetClipboardData(CF_TEXT);
+         CloseClipboard();
+        }
+        QString clip_str = QString::fromUtf8((char*)clip);
+        QString clip_toInt = QString::number(clip_str.toInt());
+        qDebug() << clip_toInt;
+        if ((clip_toInt != "0") && (ui->lineEdit->text().length() == 0))
+            ui->lineEdit->setText(clip_toInt);
+    }
+
+    return false;
+}
+
+
 
 MainWindow::~MainWindow()
 {
