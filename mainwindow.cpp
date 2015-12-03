@@ -8,9 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->label->setText("Input Bug Number");
-    baseWebURL = "http://XXX.XXX.com/bugs/files/0/";
+    baseWebURL = "http://github.com/bugs/files/0/";
     baseFolderURL = "file:///Z:/files/0/";
-
 
     ui->lineEdit->setFocus();
     ui->lineEdit->installEventFilter(this);
@@ -32,6 +31,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event)
         qDebug() << clip_toInt;
         if ((clip_toInt != "0") && (ui->lineEdit->text().length() == 0))
             ui->lineEdit->setText(clip_toInt);
+        ui->lineEdit->selectAll();
     }
 
     return false;
