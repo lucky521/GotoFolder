@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = GotoFolder
 TEMPLATE = app
-
+win32:RC_ICONS += bug.ico
 
 SOURCES += main.cpp\
         mainwindow.cpp
@@ -18,3 +18,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+CONFIG += static
+
+DISTFILES +=
