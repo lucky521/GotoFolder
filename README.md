@@ -9,3 +9,7 @@ Jumper Tool that help to go to target folder directly
 - 跳转到Web形式的文件夹
 - 跳转到Explorer形式的文件夹
 - 跳转后程序自动关闭
+
+
+### Requirement
+- QT
